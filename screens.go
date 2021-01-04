@@ -83,3 +83,17 @@ var serverSelectionScreen = go3270.Screen{
 var serverSelectionScreenRules = go3270.Rules{
 	"service": {Validator: go3270.NonBlank},
 }
+
+var MFAScreen = go3270.Screen{
+	{Row: 0, Col: 35, Intense: true, Content: "Route/3270", Color: go3270.Yellow},
+	{Row: 8, Col: 3, Content: "Enter multi-factor authentication code: "},
+	{Row: 8, Col: 45, Name: "mfatoken", Write: true, Highlighting: go3270.Underscore},
+	{Row: 8, Col: 47},
+	{Row: 9, Col: 3, Name: "errormsg", Color: go3270.Red},
+	{Row: 9, Col: 79},
+	{Row: 22, Col: 0, Content: "PF3 Exit", Color: go3270.Blue},
+}
+
+var MFAScreenRules = go3270.Rules{
+	"mfatoken": {Validator: go3270.IsInteger},
+}
