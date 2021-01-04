@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"github.com/akamensky/argparse"
+	"github.com/pquerna/otp/totp"
 	"github.com/racingmars/go3270"
 	"github.com/rs/zerolog"
 	"github.com/rs/zerolog/log"
@@ -18,6 +19,7 @@ func main() {
 	parser := argparse.NewParser("route3270", "TN3270 connection router/proxy")
 
 	configFileName := parser.String("c", "config", &argparse.Options{Required: true, Help: "Configuration file to use"})
+	generateOTPsecret := parser.Flag("g", "generate", &argparse.Options{Help: "Generate OTP secret and exit"})
 
 	err := parser.Parse(os.Args)
 
@@ -26,6 +28,18 @@ func main() {
 		return
 	}
 
+	if *generateOTPsecret {
+		fmt.Println("OTP Secret:")
+		key, err := totp.Generate(totp.GenerateOpts{
+			Issuer:      "Route/3270",
+			AccountName: "alice@example.com",
+		})
+		if err != nil {
+			panic(err)
+		}
+		fmt.Println(key.Secret())
+		return
+	}
 	configFile = *configFileName
 
 	config := parseConfig(configFile)
