@@ -1,11 +1,48 @@
 package main
 
 import (
+	"github.com/pquerna/otp/totp"
 	"github.com/racingmars/go3270"
 	"github.com/rs/zerolog/log"
 	"net"
 	"strings"
 )
+
+func validate_mfa(username string, secret string, conn net.Conn) bool {
+	fieldValues := make(map[string]string)
+
+	for {
+		response, err := go3270.HandleScreen(
+			MFAScreen,
+			MFAScreenRules,
+			fieldValues,
+			[]go3270.AID{go3270.AIDEnter},
+			[]go3270.AID{go3270.AIDPF3},
+			"errormsg",
+			8,46,
+			conn,
+		)
+		if err != nil {
+			log.Error().Err(err).Msg("Could not deliver MFA screen to client")
+			return false
+		}
+
+		if response.AID == go3270.AIDPF3 {
+			return false
+		}
+		fieldValues = response.Values
+
+		mfaStr := fieldValues["mfatoken"]
+		if totp.Validate(mfaStr, secret) {
+			fieldValues["errormsg"] = ""
+			log.Info().Msgf("Login for user %s successfully validated using MFA.", username)
+			return true
+		} else {
+			log.Info().Msgf("Invalid MFA token entered for user %s", username)
+			fieldValues["errormsg"] = "Invalid OTP entered. Please try again."
+		}
+	}
+}
 
 func login(conn net.Conn) {
 	config := parseConfig(configFile)
@@ -42,6 +79,11 @@ func login(conn net.Conn) {
 		if val, ok := config.Users[username]; ok {
 			if password == val.Password {
 				fieldValues["errormsg"] = ""
+				if val.TOTPKey != "" {
+					if ! validate_mfa(username, val.TOTPKey, conn) {
+						continue
+					}
+				}
 				log.Info().Msgf("Successful login for user %s from host %s", username , conn.RemoteAddr())
 				if chooser(conn, username) {
 					continue
