@@ -1,0 +1,12 @@
+
+port = 3270
+
+[users]
+  [users.friedkiwi]
+    password = "test"
+    destinationHost = "172.16.6.3"
+    destinationPort = 23
+  [users.moshix]
+    password = "moshix123"
+    destinationHost = "example.net"
+    destinationPort = 23
