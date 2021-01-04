@@ -22,13 +22,16 @@ var loginScreenRules = go3270.Rules{
 	"password": {Validator: go3270.NonBlank, Reset: true},
 }
 
-var patchingThroughScreen = go3270.Screen{
-	{Row: 12, Col: 28, Content: "Patching you through..."},
-	{Row: 14, Col: 22, Content: "Press RESET to refresh host screen"},
-	{Row: 22, Col: 1, Content: "Hostname: "},
-	{Row: 22, Col: 40, Content: "Port"},
-	{Row: 22, Col: 11, Name: "destination", Intense: true},
-	{Row: 22, Col: 39},
-	{Row: 22, Col: 46, Name: "port", Intense: true},
-	{Row: 22, Col: 79},
+var connectionErrorScreen = go3270.Screen{
+	{Row: 0, Col: 35, Intense: true, Content: "Route/3270"},
+	{Row: 4, Col: 3, Intense: true, Content: "Error", Color: go3270.Red},
+	{Row: 6, Col: 3, Name: "errormsg"},
+	{Row: 6, Col: 79},
+	{Row: 22, Col: 0, Content: "PF3 Exit"},
+	{Row: 20, Col: 1, Content: "Hostname: "},
+	{Row: 20, Col: 40, Content: "Port"},
+	{Row: 20, Col: 11, Name: "destination", Intense: true},
+	{Row: 20, Col: 39},
+	{Row: 20, Col: 46, Name: "port", Intense: true},
+	{Row: 20, Col: 79},
 }

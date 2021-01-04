@@ -4,14 +4,13 @@ import (
 	"fmt"
 	"github.com/akamensky/argparse"
 	"github.com/racingmars/go3270"
+	"github.com/rs/zerolog"
+	"github.com/rs/zerolog/log"
 	"net"
 	"os"
+	"time"
 )
 
-func init() {
-	// put the go3270 library in debug mode
-	go3270.Debug = os.Stderr
-}
 
 var configFile string
 func main() {
@@ -31,17 +30,25 @@ func main() {
 
 	config := parseConfig(configFile)
 
+	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339})
+	zerolog.SetGlobalLevel(zerolog.InfoLevel)
+
+	log.Info().Msg("Starting ROUTE/3270.")
 
 	ln, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
 	if err != nil {
-		panic(err)
+		log.Error().Msgf("%s", err)
+		log.Error().Err(err).Msg("Could not start listening on the specified port. Quitting.")
+		return
 	}
-	fmt.Printf("LISTENING ON PORT %d FOR CONNECTIONS\n", config.Port)
-	fmt.Println("Press Ctrl-C to end server.")
+
+	log.Info().Msgf("Listening on port %d for connections.", config.Port)
+
 	for {
 		conn, err := ln.Accept()
 		if err != nil {
-			panic(err)
+			log.Error().Err(err).Msg("Could not accept the connection.")
+			continue
 		}
 		go handle(conn)
 	}
@@ -51,12 +58,11 @@ func main() {
 func handle(conn net.Conn) {
 	defer conn.Close()
 
+	log.Info().Msgf("Accepted connection from %s", conn.RemoteAddr())
 	// Always begin new connection by negotiating the telnet options
 	go3270.NegotiateTelnet(conn)
 
 	// Handle logging in
 	login(conn)
 
-
-	fmt.Println("Connection closed")
 }

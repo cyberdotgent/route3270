@@ -5,6 +5,7 @@ import (
 	"github.com/racingmars/go3270"
 	"net"
 	"strings"
+	"github.com/rs/zerolog/log"
 )
 
 func login(conn net.Conn) {
@@ -42,10 +43,17 @@ func login(conn net.Conn) {
 		if val, ok := config.Users[username]; ok {
 			if password == val.Password {
 				fieldValues["errormsg"] = ""
+				log.Info().Msgf("Successful login for user %s from host %s", username , conn.RemoteAddr())
 				if proxy(val.DestinationHost, val.DestinationPort, conn) {
+					continue
+				} else {
+					log.Info().Msgf("Session ended for user %s", username)
 					break
 				}
 			}
+		}
+		if username != "" {
+			log.Warn().Msgf("Invalid login for user %s from host %s", username, conn.RemoteAddr())
 		}
 
 		continue
