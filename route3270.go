@@ -33,7 +33,7 @@ func main() {
 	log.Logger = log.Output(zerolog.ConsoleWriter{Out: os.Stdout, TimeFormat: time.RFC3339})
 	zerolog.SetGlobalLevel(zerolog.InfoLevel)
 
-	log.Info().Msg("Starting ROUTE/3270.")
+	log.Info().Msg("Starting Route/3270.")
 
 	ln, err := net.Listen("tcp", fmt.Sprintf(":%d", config.Port))
 	if err != nil {
