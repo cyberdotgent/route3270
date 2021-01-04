@@ -5,6 +5,7 @@ import "github.com/BurntSushi/toml"
 type userInfo struct {
 	Password string
 	Servers []string
+	TOTPKey string
 }
 
 type serverInfo struct {
