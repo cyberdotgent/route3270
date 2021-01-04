@@ -4,12 +4,19 @@ import "github.com/BurntSushi/toml"
 
 type userInfo struct {
 	Password string
-	DestinationHost string
-	DestinationPort int32
+	Servers []string
+}
+
+type serverInfo struct {
+	Hostname string
+	Port int32
+	Description string
+	Mnemoric string
 }
 
 type tomlConfig struct {
 	Port int32
+	Servers map[string]serverInfo
 	Users map[string]userInfo
 }
 

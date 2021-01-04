@@ -1,11 +1,10 @@
 package main
 
 import (
-	"fmt"
 	"github.com/racingmars/go3270"
+	"github.com/rs/zerolog/log"
 	"net"
 	"strings"
-	"github.com/rs/zerolog/log"
 )
 
 func login(conn net.Conn) {
@@ -26,7 +25,7 @@ func login(conn net.Conn) {
 			conn,
 		)
 		if err != nil {
-			fmt.Println(err)
+			log.Error().Err(err).Msg("Could not deliver login screen to client")
 			return
 		}
 
@@ -44,7 +43,7 @@ func login(conn net.Conn) {
 			if password == val.Password {
 				fieldValues["errormsg"] = ""
 				log.Info().Msgf("Successful login for user %s from host %s", username , conn.RemoteAddr())
-				if proxy(val.DestinationHost, val.DestinationPort, conn) {
+				if chooser(conn, username) {
 					continue
 				} else {
 					log.Info().Msgf("Session ended for user %s", username)
