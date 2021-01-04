@@ -15,6 +15,11 @@ var loginScreen = go3270.Screen {
 	{Row: 12, Col: 17, Content: "to log in."},
 	{Row: 10, Col: 3, Intense: true, Color: go3270.Red, Name: "errormsg"},
 	{Row: 22, Col: 0, Content: "PF3 Exit", Color: go3270.Blue},
+	{Row: 19, Col: 46, Content: "github.com/cyberdotgent/route3270"},
+	{Row: 20, Col: 60, Content: "(c)"},
+	{Row: 20, Col: 64, Content: "CYBER.gent", Color: go3270.Yellow},
+	{Row: 20, Col: 75, Content: "2021"},
+
 }
 
 var loginScreenRules = go3270.Rules{
