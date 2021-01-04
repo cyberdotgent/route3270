@@ -4,8 +4,11 @@ A simple TN3270 router that can be used to route access to several applications 
 
 ## Features
 
-* Nothing insofar
+* Nothing proxying a single connection per user
+* Authentication
 
 ## Usage
 
     route3270 -c example.toml
+    
+Review the `example.toml` file for usage instructions.
