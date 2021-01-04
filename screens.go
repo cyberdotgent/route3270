@@ -3,7 +3,7 @@ package main
 import "github.com/racingmars/go3270"
 
 var loginScreen = go3270.Screen {
-	{Row: 0, Col: 35, Intense: true, Content: "Route/3270"},
+	{Row: 0, Col: 35, Intense: true, Content: "Route/3270", Color: go3270.Yellow},
 	{Row: 6, Col: 3, Content: "Username: "},
 	{Row: 8, Col: 3, Content: "Password: "},
 	{Row: 6, Col: 15, Name: "username", Write: true, Highlighting: go3270.Underscore},
@@ -14,7 +14,7 @@ var loginScreen = go3270.Screen {
 	{Row: 12, Col: 10, Content: "ENTER", Intense: true},
 	{Row: 12, Col: 17, Content: "to log in."},
 	{Row: 10, Col: 3, Intense: true, Color: go3270.Red, Name: "errormsg"},
-	{Row: 22, Col: 0, Content: "PF3 Exit"},
+	{Row: 22, Col: 0, Content: "PF3 Exit", Color: go3270.Blue},
 }
 
 var loginScreenRules = go3270.Rules{
@@ -23,11 +23,11 @@ var loginScreenRules = go3270.Rules{
 }
 
 var connectionErrorScreen = go3270.Screen{
-	{Row: 0, Col: 35, Intense: true, Content: "Route/3270"},
+	{Row: 0, Col: 35, Intense: true, Content: "Route/3270", Color: go3270.Yellow},
 	{Row: 4, Col: 3, Intense: true, Content: "Error", Color: go3270.Red},
 	{Row: 6, Col: 3, Name: "errormsg"},
 	{Row: 6, Col: 79},
-	{Row: 22, Col: 0, Content: "ENTER Back"},
+	{Row: 22, Col: 0, Content: "ENTER Back", Color: go3270.Blue},
 	{Row: 20, Col: 1, Content: "Hostname: "},
 	{Row: 20, Col: 40, Content: "Port"},
 	{Row: 20, Col: 11, Name: "destination", Intense: true},
@@ -37,7 +37,7 @@ var connectionErrorScreen = go3270.Screen{
 }
 
 var serverSelectionScreen = go3270.Screen{
-	{Row: 0, Col: 35, Intense: true, Content: "Route/3270"},
+	{Row: 0, Col: 35, Intense: true, Content: "Route/3270", Color: go3270.Yellow},
 	{Row: 3, Col: 3, Content: "Service       Description", Intense: true},
 	{Row: 4, Col: 3, Name: "svc1"},
 	{Row: 4, Col: 17, Name: "desc1"},
@@ -72,7 +72,7 @@ var serverSelectionScreen = go3270.Screen{
 	{Row: 20, Col: 14, Name: "service", Write: true, Highlighting: go3270.Underscore},
 	{Row: 20, Col: 21},
 	{Row: 21, Col: 3, Intense: true, Color: go3270.Red, Name: "errormsg"},
-	{Row: 22, Col: 0, Content: "PF3 Exit          PF12 Logout"},
+	{Row: 22, Col: 0, Content: "PF3 Exit          PF12 Logout", Color: go3270.Blue},
 }
 
 var serverSelectionScreenRules = go3270.Rules{

@@ -17,6 +17,6 @@ port = 3270
   [users.friedkiwi]
     password = "test"
     servers = ["g6", "example"]
-  [users.moshix]
-    password = "moshix123"
+  [users.limited]
+    password = "password"
     servers = ["example"]
