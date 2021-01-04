@@ -1,12 +1,22 @@
 
 port = 3270
 
+[servers]
+  [servers.g6]
+    hostname = "172.16.6.3"
+    port = 23
+    description = "Gouvernementstraat 6 z/OS instance"
+    mnemoric = "G6"
+  [servers.example]
+    hostname = "example.net"
+    port = 23
+    description = "Example.net fake entry"
+    mnemoric = "SAMPLE"
+
 [users]
   [users.friedkiwi]
     password = "test"
-    destinationHost = "172.16.6.3"
-    destinationPort = 23
+    servers = ["g6", "example"]
   [users.moshix]
     password = "moshix123"
-    destinationHost = "example.net"
-    destinationPort = 23
+    servers = ["example"]

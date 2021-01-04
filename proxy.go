@@ -16,7 +16,7 @@ func showConnectionError(destinationHost string, destinationPort int32, errormsg
 	fieldValues["port"] = fmt.Sprintf("%d", destinationPort)
 	fieldValues["errormsg"] = errormsg.Error()
 
-	response, err := go3270.HandleScreen(
+	_, err := go3270.HandleScreen(
 		connectionErrorScreen,
 		nil,
 		fieldValues,
@@ -28,11 +28,7 @@ func showConnectionError(destinationHost string, destinationPort int32, errormsg
 	)
 
 	if err != nil {
-		fmt.Println(err)
-		return false
-	}
-
-	if response.AID == go3270.AIDPF3 {
+		log.Error().Err(err).Msg("Could not deliver login screen to client")
 		return false
 	}
 
