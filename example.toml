@@ -17,6 +17,8 @@ port = 3270
   [users.friedkiwi]
     password = "test"
     servers = ["g6", "example"]
+    totpkey = "Q3JGOCMWHTEOEZKO2ZOBZUBYPELOOZSI"
   [users.limited]
     password = "password"
     servers = ["example"]
+    totpkey = ""
