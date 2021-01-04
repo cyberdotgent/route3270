@@ -1,0 +1,6 @@
+github.com/BurntSushi/toml v0.3.1 h1:WXkYYl6Yr3qBf1K79EBnL4mak0OimBfB0XUf9Vl28OQ=
+github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
+github.com/akamensky/argparse v1.2.2 h1:P17T0ZjlUNJuWTPPJ2A5dM1wxarHgHqfYH+AZTo2xQA=
+github.com/akamensky/argparse v1.2.2/go.mod h1:S5kwC7IuDcEr5VeXtGPRVZ5o/FdhcMlQz4IZQuw64xA=
+github.com/racingmars/go3270 v0.0.0-20201231034102-c72f89f1d724 h1:OL19WmL56GGO2hD+iy5pRNRg7RvNcdb1FVAKMVq5dT0=
+github.com/racingmars/go3270 v0.0.0-20201231034102-c72f89f1d724/go.mod h1:TVzW7wx9lk51ziz/RKKkOj1Kc3NrPJkqMWJFiH5p3pI=
